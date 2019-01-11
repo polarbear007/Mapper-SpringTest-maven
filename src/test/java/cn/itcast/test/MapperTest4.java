@@ -30,6 +30,8 @@ public class MapperTest4 {
 		}
 	}
 	
+	// 使用自己手动添加的接口方法添加数据
+	//  对比下面使用通用Mapper 提供的方法添加数据时， GenderType 会有什么区别
 	@Test
 	public void test2() {
 		Employees employees = new Employees();
@@ -43,6 +45,7 @@ public class MapperTest4 {
 		System.out.println(employees);
 	}
 	
+	// 
 	@Test
 	public void test3() {
 		Employees employees = new Employees();
