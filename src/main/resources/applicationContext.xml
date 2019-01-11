@@ -21,12 +21,9 @@
 		<property name="password" value="root"/>
 	</bean>
 	
-	<!-- 配置sqlSessionFactory， 我们要配置 mybatisPlus 提供的 MybatisSqlSessionFactoryBean 来生成
-	             这是与原来整合最主要的不同之处。
-		【注意】 虽然我们没有配置 mybatis 与  spring 的整合包，但是其实还是导入进来了
-		               这是因为我们导入的 mybatisplus jar包依赖了整合包，所以我们只需要导入 mybatisplus 的jar包就行了
-		与spring 整合以后，我们尽量就把所有mybatis核心配置文件里面的内容都搬过来
-	 -->
+	<!-- 配置sqlSessionFactory 
+		配置通用mapper，我们需要修改这个生成 SqlSessionFactory 的工厂类，但通用Mapper 不需要
+	-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 引入dataSource -->
 		<property name="dataSource" ref="dataSource"/>

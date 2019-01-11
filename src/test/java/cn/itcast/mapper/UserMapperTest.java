@@ -1,7 +1,5 @@
 package cn.itcast.mapper;
 
-import static org.junit.Assert.fail;
-
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.itcast.entity.User;
 import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.entity.Example.Criteria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
@@ -29,12 +26,17 @@ public class UserMapperTest {
 		User user = new User();
 		user.setUsername("小李");
 		user.setGender('男');
+		// 【注意】 传入的 user 对象，如果属性有值，都会作为等值的查询条件
+		//        如果我们传入一个 空的 user 对象，那么就是没有任何查询条件啦
+		// 【注意】 selectOne() 方法如果查询出多条记录，那么就会报错，所以我们一般不使用
 		User user2 = userMapper.selectOne(user);
 		System.out.println(user2);
 	}
 	
 	// SELECT uid,username,birthday,gender,address 
 	// FROM mybatis_mapper.t_user WHERE gender = ? 
+	// 【注意】 select() 方法用法跟selectOne() 方法几乎是一样的，也需要传入一个 user 对象
+	//        但是这个方法返回的是一个 List 集合，我们一般都是使用这个方法的。
 	@Test
 	public void testSelect() {
 		User user = new User();
@@ -49,6 +51,7 @@ public class UserMapperTest {
 	
 	// SELECT uid,username,birthday,gender,address 
 	// FROM mybatis_mapper.t_user 
+	// 【注意】 selectAll() 方法不需要传入任何条件，默认查询全表数据
 	@Test
 	public void testSelectAll() {
 		List<User> list = userMapper.selectAll();
@@ -91,6 +94,7 @@ public class UserMapperTest {
 	
 	// SELECT CASE WHEN COUNT(uid) > 0 THEN 1 ELSE 0 END AS result 
 	// FROM mybatis_mapper.t_user WHERE uid = ? 
+	// 根据主键来判断数据库中是否存在这条记录
 	@Test
 	public void testExistsWithPrimaryKey() {
 		boolean result = userMapper.existsWithPrimaryKey(12);
@@ -173,7 +177,7 @@ public class UserMapperTest {
 		userMapper.deleteByPrimaryKey(12);
 	}
 
-	// QBE查询， 跟原生Mybatis 逆向工程生成的那个 example 完全一样
+	// QBE查询， 跟原生Mybatis 逆向工程生成的那个 example 用法完全一样
 	// SELECT uid,username,birthday,gender,address 
 	// FROM mybatis_mapper.t_user
 	// WHERE ( ( uid > ? and username like ? ) ) 
@@ -192,6 +196,7 @@ public class UserMapperTest {
 	
 	// SELECT uid,username,birthday,gender,address 
 	// FROM mybatis_mapper.t_user WHERE ( ( uid = ? ) ) 
+	// 【注意】 查询的结果如果有多条记录，那么会报错；一般传入 id ，做等值判断的时候才使用这个方法。
 	@Test
 	public void testSelectOneByExample() {
 		Example example = new Example(User.class);

@@ -7,8 +7,10 @@
   <properties>
 		<spring.version>4.3.18.RELEASE</spring.version>
 		<mybatis.version>3.4.2</mybatis.version> 
-		<!-- <mybatisPlus.version>3.0-RELEASE</mybatisPlus.version> -->
 		<mysql.driver.version>8.0.12</mysql.driver.version>
+		<!-- <mybatisPlus.version>3.0-RELEASE</mybatisPlus.version> -->
+		<pageHelper.version>5.1.8</pageHelper.version>
+		<tk.mapper.version>4.1.0</tk.mapper.version>
 	</properties>
 
 	<dependencies>
@@ -126,14 +128,14 @@
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
-			<version>5.1.8</version>
+			<version>${pageHelper.version}</version>
 		</dependency>
 		 
 		 <!-- 通用Mapper 的jar 包 -->
 		<dependency>
 		    <groupId>tk.mybatis</groupId>
 		    <artifactId>mapper</artifactId>
-		    <version>4.1.0</version>
+		    <version>${tk.mapper.version}</version>
 		</dependency>
 		 
 
